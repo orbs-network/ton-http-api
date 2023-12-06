@@ -710,7 +710,8 @@ def external_is_for_null_addr(slice):
 @json_rpc("sendBoc")
 @wrap_result
 async def send_boc(
-    boc: str = Body(..., embed=True, description="b64 encoded bag of cells")
+    boc: str = Body(..., embed=True, description="b64 encoded bag of cells"),
+    tonlib: TonlibManager = Depends(tonlib_dep),
 ):
     """
     Send serialized boc file: fully packed and serialized external message to blockchain.
@@ -738,7 +739,8 @@ async def send_boc(
 @json_rpc("sendBocReturnHash")
 @wrap_result
 async def send_boc_return_hash(
-    boc: str = Body(..., embed=True, description="b64 encoded bag of cells")
+    boc: str = Body(..., embed=True, description="b64 encoded bag of cells"),
+    tonlib: TonlibManager = Depends(tonlib_dep),
 ):
     """
     Send serialized boc file: fully packed and serialized external message to blockchain. The method returns message hash.
