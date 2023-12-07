@@ -656,6 +656,8 @@ async def detect_address(
 #     boc = base64.b64decode(boc)
 #     return await tonlib.raw_send_message_return_hash(boc)
 
+# martan2
+
 
 def int_is_for_null_addr(slice):
     slice.read_next(4)
@@ -723,8 +725,14 @@ async def send_boc(
         if external_is_for_null_addr(cell_slice):
             logger.error(f"detected message for null addr, boc: {boc}")
             raise RuntimeError("HOLD")
+    except RuntimeError as e:
+        raise e
     except:
         pass
+
+    if "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" in boc:
+        logger.error(f"detected message for null addr (AAA), boc: {boc}")
+        raise RuntimeError("HOLD")
 
     boc = base64.b64decode(boc)
     return await tonlib.raw_send_message(boc)
@@ -752,8 +760,14 @@ async def send_boc_return_hash(
         if external_is_for_null_addr(cell_slice):
             logger.error(f"detected message for null addr, boc: {boc}")
             raise RuntimeError("HOLD")
+    except RuntimeError as e:
+        raise e
     except:
         pass
+
+    if "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" in boc:
+        logger.error(f"detected message for null addr (AAA), boc: {boc}")
+        raise RuntimeError("HOLD")
 
     boc = base64.b64decode(boc)
     return await tonlib.raw_send_message_return_hash(boc)

@@ -36,9 +36,9 @@ async def startup():
     )
 
     #
-    logger.info("#################################")
-    logger.info("REVISED VERPO tonlib v3, dep #003")
-    logger.info("#################################")
+    logger.info("#######################################")
+    logger.info(" ORBS REVISED VERPO tonlib v3, dep #004")
+    logger.info("#######################################")
 
     # prepare tonlib
     cache_manager_dep.init(settings)
