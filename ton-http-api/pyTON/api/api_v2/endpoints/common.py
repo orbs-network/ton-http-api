@@ -753,17 +753,18 @@ async def send_boc_return_hash(
     """
     Send serialized boc file: fully packed and serialized external message to blockchain. The method returns message hash.
     """
-    try:
-        boc_bytes = codecs.decode(codecs.encode(boc, "utf-8"), "base64")
-        cell = deserialize_boc(boc_bytes)
-        cell_slice = Slice(cell)
-        if external_is_for_null_addr(cell_slice):
-            logger.error(f"detected message for null addr, boc: {boc}")
-            raise RuntimeError("HOLD")
-    except RuntimeError as e:
-        raise e
-    except:
-        pass
+    # Martan patch remove
+    # try:
+    #     boc_bytes = codecs.decode(codecs.encode(boc, "utf-8"), "base64")
+    #     cell = deserialize_boc(boc_bytes)
+    #     cell_slice = Slice(cell)
+    #     if external_is_for_null_addr(cell_slice):
+    #         logger.error(f"detected message for null addr, boc: {boc}")
+    #         raise RuntimeError("HOLD")
+    # except RuntimeError as e:
+    #     raise e
+    # except:
+    #     pass
 
     if "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" in boc:
         logger.error(f"detected message for null addr (AAA), boc: {boc}")
